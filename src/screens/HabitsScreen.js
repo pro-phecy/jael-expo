@@ -3,19 +3,18 @@ import { View, Text, Pressable, ScrollView } from "react-native";
 import { Plus } from "lucide-react-native";
 import { useAppTheme } from "../context/ThemeContext";
 import { space, type } from "../theme/tokens";
-import ScreenEnter from "../components/ScreenEnter";
+import ToolScreen from "../components/ToolScreen";
 import SubHeader from "../components/SubHeader";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import PopOnChange from "../components/PopOnChange";
-import { usePersistedState } from "../hooks/usePersistedState";
 
 const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
 export default function HabitsScreen({ onBack }) {
   const { theme } = useAppTheme();
-  const [habits, setHabits] = usePersistedState("jael:habits", [
+  const [habits, setHabits] = useState([
     { id: 1, name: "Send a good morning text", done: [true, true, false, true, false, false, false] },
     { id: 2, name: "Journal a thought about them", done: [true, false, false, false, false, false, false] },
   ]);
@@ -30,11 +29,11 @@ export default function HabitsScreen({ onBack }) {
   };
 
   return (
-    <ScreenEnter style={{ flex: 1, width: "100%" }}>
+    <ToolScreen>
       <SubHeader title="Habit tracker" onBack={onBack} />
-      <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, width: "100%" }}>
+      <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
         <View style={{ flexDirection: "row", gap: space.sm, marginBottom: space.xl }}>
-          <TextInput value={draft} onChangeText={setDraft} onSubmitEditing={addHabit} placeholder="Add a habit..." style={{ flex: 1 }} />
+          <TextInput value={draft} onChangeText={setDraft} onSubmitEditing={addHabit} placeholder="Add a habit..." style={{ flexGrow: 1, flexBasis: 0 }} />
           <Button variant="primary" iconOnly icon={Plus} onPress={addHabit} accessibilityLabel="Add habit" />
         </View>
         <View style={{ gap: space.lg }}>
@@ -71,6 +70,6 @@ export default function HabitsScreen({ onBack }) {
           ))}
         </View>
       </ScrollView>
-    </ScreenEnter>
+    </ToolScreen>
   );
 }

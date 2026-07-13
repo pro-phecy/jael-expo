@@ -3,16 +3,15 @@ import { View, Text, Pressable, ScrollView } from "react-native";
 import { Plus, Trash2 } from "lucide-react-native";
 import { useAppTheme } from "../context/ThemeContext";
 import { space, radius, type } from "../theme/tokens";
-import ScreenEnter from "../components/ScreenEnter";
+import ToolScreen from "../components/ToolScreen";
 import SubHeader from "../components/SubHeader";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
-import { usePersistedState } from "../hooks/usePersistedState";
 
 export default function NotesScreen({ onBack }) {
   const { theme } = useAppTheme();
-  const [notes, setNotes] = usePersistedState("jael:notes", [
+  const [notes, setNotes] = useState([
     { id: 1, title: "That thing they said", body: "About the trip to the coast. Keep bringing it up casually." },
   ]);
   const [editing, setEditing] = useState(null);
@@ -31,12 +30,12 @@ export default function NotesScreen({ onBack }) {
 
   if (editing) {
     return (
-      <ScreenEnter style={{ flex: 1, width: "100%" }}>
+      <ToolScreen>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: space.xl, paddingBottom: space.lg }}>
           <Button variant="plain" size="sm" onPress={() => setEditing(null)}>Cancel</Button>
           <Button variant="ghost" size="sm" onPress={save}>Save</Button>
         </View>
-        <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, width: "100%" }}>
+        <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
           <TextInput
             value={draftTitle}
             onChangeText={setDraftTitle}
@@ -52,14 +51,14 @@ export default function NotesScreen({ onBack }) {
             style={{ borderWidth: 0, paddingHorizontal: 0, fontSize: type.body, lineHeight: 22, minHeight: 220, textAlignVertical: "top", backgroundColor: "transparent" }}
           />
         </ScrollView>
-      </ScreenEnter>
+      </ToolScreen>
     );
   }
 
   return (
-    <ScreenEnter style={{ flex: 1, width: "100%" }}>
+    <ToolScreen>
       <SubHeader title="Notes" onBack={onBack} />
-      <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, gap: space.md, width: "100%" }}>
+      <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, gap: space.md }}>
         <Button variant="dashed" icon={Plus} onPress={openNew}>New note</Button>
         {notes.map((n, idx) => (
           <Card key={n.id} delay={idx * 45}>
@@ -76,6 +75,6 @@ export default function NotesScreen({ onBack }) {
           <Text style={{ fontSize: type.body, color: theme.muted, textAlign: "center", marginTop: 20 }}>Nothing written yet</Text>
         )}
       </ScrollView>
-    </ScreenEnter>
+    </ToolScreen>
   );
 }

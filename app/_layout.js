@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Slot } from 'expo-router';
 
 import WelcomeScreen from '../src/components/welcome/WelcomeScreen';
-import { ThemeProvider } from '../src/context/ThemeContext';
-import { NotificationsProvider } from '../src/context/NotificationsContext';
-import GlobalNotificationsPanel from '../src/components/GlobalNotificationsPanel';
 import { useFonts } from "expo-font";
 import {
   Fraunces_400Regular,
@@ -35,23 +31,15 @@ export default function RootLayout() {
   const appReady = fontsLoaded;
 
   return (
-    <SafeAreaProvider>
-      <ThemeProvider>
-        <NotificationsProvider>
-          <View style={styles.flex}>
-            {appReady && <Slot />}
+    <View style={styles.flex}>
+      {appReady && <Slot />}
 
-            {showWelcome && (
-              <View style={StyleSheet.absoluteFill}>
-                <WelcomeScreen onFinished={() => setShowWelcome(false)} />
-              </View>
-            )}
-
-            <GlobalNotificationsPanel />
-          </View>
-        </NotificationsProvider>
-      </ThemeProvider>
-    </SafeAreaProvider>
+      {showWelcome && (
+        <View style={StyleSheet.absoluteFill}>
+          <WelcomeScreen onFinished={() => setShowWelcome(false)} />
+        </View>
+      )}
+    </View>
   );
 }
 

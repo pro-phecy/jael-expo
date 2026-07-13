@@ -3,16 +3,15 @@ import { View, Text, Pressable, ScrollView } from "react-native";
 import { Plus, Check, X } from "lucide-react-native";
 import { useAppTheme } from "../context/ThemeContext";
 import { space, radius, type } from "../theme/tokens";
-import ScreenEnter from "../components/ScreenEnter";
+import ToolScreen from "../components/ToolScreen";
 import SubHeader from "../components/SubHeader";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import PopOnChange from "../components/PopOnChange";
-import { usePersistedState } from "../hooks/usePersistedState";
 
 export default function TodoScreen({ onBack }) {
   const { theme } = useAppTheme();
-  const [items, setItems] = usePersistedState("jael:todos", [
+  const [items, setItems] = useState([
     { id: 1, text: "Reply to their message", done: false },
     { id: 2, text: "Pick a coffee spot for Thursday", done: false },
     { id: 3, text: "Save that playlist idea", done: true },
@@ -29,12 +28,12 @@ export default function TodoScreen({ onBack }) {
   const remaining = items.filter((i) => !i.done).length;
 
   return (
-    <ScreenEnter style={{ flex: 1, width: "100%" }}>
+    <ToolScreen>
       <SubHeader title="To-do" onBack={onBack} />
-      <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, width: "100%" }}>
+      <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
         <Text style={{ fontSize: type.label, color: theme.muted, marginBottom: space.lg }}>{remaining} left to do</Text>
         <View style={{ flexDirection: "row", gap: space.sm, marginBottom: space.xl }}>
-          <TextInput value={draft} onChangeText={setDraft} onSubmitEditing={add} placeholder="Add a small thing..." style={{ flex: 1 }} />
+          <TextInput value={draft} onChangeText={setDraft} onSubmitEditing={add} placeholder="Add a small thing..." style={{ flexGrow: 1, flexBasis: 0 }} />
           <Button variant="primary" iconOnly icon={Plus} onPress={add} accessibilityLabel="Add task" />
         </View>
         <View style={{ gap: space.sm }}>
@@ -81,6 +80,6 @@ export default function TodoScreen({ onBack }) {
           ))}
         </View>
       </ScrollView>
-    </ScreenEnter>
+    </ToolScreen>
   );
 }

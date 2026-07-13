@@ -1,37 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { Droplet } from "lucide-react-native";
 import { useAppTheme } from "../context/ThemeContext";
 import { space, radius, type } from "../theme/tokens";
-import ScreenEnter from "../components/ScreenEnter";
+import ToolScreen from "../components/ToolScreen";
 import SubHeader from "../components/SubHeader";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import PopOnChange from "../components/PopOnChange";
-import { usePersistedState } from "../hooks/usePersistedState";
-import { dateKey } from "../utils/streak";
 
 export default function WaterScreen({ onBack }) {
   const { theme } = useAppTheme();
   const goal = 8;
-  const today = dateKey(new Date());
-  // Stored as { date, count } so a new calendar day starts back at 0
-  // instead of carrying yesterday's glasses forward.
-  const [waterData, setWaterData] = usePersistedState("jael:water", { date: today, count: 0 });
-  const count = waterData.date === today ? waterData.count : 0;
-  const setCount = (updater) => {
-    setWaterData((prev) => {
-      const current = prev.date === today ? prev.count : 0;
-      const nextCount = typeof updater === "function" ? updater(current) : updater;
-      return { date: today, count: nextCount };
-    });
-  };
+  const [count, setCount] = useState(4);
   const pct = Math.round((Math.min(count, goal) / goal) * 100);
 
   return (
-    <ScreenEnter style={{ flex: 1, width: "100%" }}>
+    <ToolScreen>
       <SubHeader title="Water tracker" onBack={onBack} />
-      <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, width: "100%" }}>
+      <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
         <Card style={{ alignItems: "center", paddingVertical: 26 }}>
           <PopOnChange changeKey={count}>
             <Text style={{ fontFamily: "Fraunces_400Regular", fontSize: 34, color: theme.blushText }}>
@@ -75,10 +62,10 @@ export default function WaterScreen({ onBack }) {
         </View>
 
         <View style={{ flexDirection: "row", gap: space.md }}>
-          <Button variant="outline" onPress={() => setCount(Math.max(0, count - 1))} style={{ flex: 1 }}>- One less</Button>
-          <Button variant="primary" onPress={() => setCount(count + 1)} style={{ flex: 1 }}>+ Add glass</Button>
+          <Button variant="outline" onPress={() => setCount(Math.max(0, count - 1))} style={{ flexGrow: 1, flexBasis: 0 }}>- One less</Button>
+          <Button variant="primary" onPress={() => setCount(count + 1)} style={{ flexGrow: 1, flexBasis: 0 }}>+ Add glass</Button>
         </View>
       </ScrollView>
-    </ScreenEnter>
+    </ToolScreen>
   );
 }

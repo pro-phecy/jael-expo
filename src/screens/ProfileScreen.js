@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { Bell, Lock, HelpCircle, Moon, Sun, ChevronRight } from "lucide-react-native";
 import { useAppTheme } from "../context/ThemeContext";
@@ -6,7 +6,6 @@ import { space, radius, type } from "../theme/tokens";
 import ScreenEnter from "../components/ScreenEnter";
 import Button from "../components/Button";
 import Toggle from "../components/Toggle";
-import { usePersistedState } from "../hooks/usePersistedState";
 
 const ROWS = [
   { label: "Privacy", icon: Lock },
@@ -15,11 +14,11 @@ const ROWS = [
 
 export default function ProfileScreen() {
   const { theme, darkMode, toggleDarkMode } = useAppTheme();
-  const [pushEnabled, setPushEnabled] = usePersistedState("jael:push-enabled", true);
+  const [pushEnabled, setPushEnabled] = useState(true);
 
   return (
-    <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ padding: space.xl, paddingTop: space.md, width: "100%" }}>
-      <ScreenEnter style={{ width: "100%" }}>
+    <ScrollView contentContainerStyle={{ padding: space.xl, paddingTop: space.md }}>
+      <ScreenEnter>
         <View style={{ alignItems: "center", paddingVertical: space.xl }}>
           <View
             style={{

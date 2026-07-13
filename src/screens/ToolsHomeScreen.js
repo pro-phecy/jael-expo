@@ -16,8 +16,8 @@ const TOOLS = [
 export default function ToolsHomeScreen({ onNavigate }) {
   const { theme } = useAppTheme();
   return (
-    <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ padding: space.xl, paddingTop: space.md, width: "100%" }}>
-      <ScreenEnter style={{ width: "100%" }}>
+    <ScrollView contentContainerStyle={{ padding: space.xl, paddingTop: space.md }}>
+      <ScreenEnter>
         <Text style={{ fontSize: type.label, letterSpacing: 1, textTransform: "uppercase", color: theme.muted, marginBottom: space.lg }}>
           Tools
         </Text>

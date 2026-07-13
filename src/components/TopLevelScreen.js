@@ -10,7 +10,7 @@ export default function TopLevelScreen({ children }) {
     <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg }} edges={["top", "left", "right"]}>
       <StatusBar barStyle={darkMode ? "light-content" : "dark-content"} />
       <AppHeader />
-      <View style={{ flex: 1, width: "100%" }}>{children}</View>
+      <View style={{ flex: 1 }}>{children}</View>
     </SafeAreaView>
   );
 }

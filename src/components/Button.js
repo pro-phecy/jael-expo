@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Animated, Pressable, Text, View } from "react-native";
+import { Animated, Pressable, Text, useWindowDimensions } from "react-native";
 import { useAppTheme } from "../context/ThemeContext";
 import { space, radius, type } from "../theme/tokens";
 
@@ -18,6 +18,7 @@ export default function Button({
   accessibilityLabel,
 }) {
   const { theme } = useAppTheme();
+  const { width: screenWidth } = useWindowDimensions();
   const scale = useRef(new Animated.Value(1)).current;
 
   const variants = {
@@ -29,12 +30,22 @@ export default function Button({
     plain: { backgroundColor: "transparent", color: theme.muted, borderWidth: 0 },
   };
 
+  // Padding scales off *screen* width rather than the button's own/parent
+  // width. Buttons are frequently used with flex:1 (e.g. two buttons split
+  // evenly in a row) — percentage padding there creates a circular
+  // dependency in Yoga (padding needs the final width, flex:1 needs to grow
+  // to fill it) and silently collapses the button to fit its content,
+  // ignoring flex:1 entirely. Scaling off screen width still makes padding
+  // responsive to device size without that trap.
   const sizes = {
-    sm: { fontSize: type.caption + 1, paddingVertical: iconOnly ? 0 : space.sm, paddingHorizontal: iconOnly ? 0 : space.lg },
-    md: { fontSize: type.body, paddingVertical: iconOnly ? 0 : space.md, paddingHorizontal: iconOnly ? 0 : space.xl },
+    sm: { fontSize: type.caption + 1, paddingVertical: iconOnly ? 0 : screenWidth * 0.021, paddingHorizontal: iconOnly ? 0 : screenWidth * 0.037 },
+    md: { fontSize: type.body, paddingVertical: iconOnly ? 0 : screenWidth * 0.027, paddingHorizontal: iconOnly ? 0 : screenWidth * 0.048 },
   };
 
-  const dimension = iconOnly ? (size === "sm" ? 30 : 38) : undefined;
+  // Icon-only buttons need an explicit box (no text to size around).
+  // aspectRatio keeps them square while the base size scales with the
+  // screen instead of being pinned to a fixed px value.
+  const dimension = iconOnly ? screenWidth * (size === "sm" ? 0.08 : 0.1013) : undefined;
   const v = variants[variant];
   const s = sizes[size];
 
@@ -49,7 +60,7 @@ export default function Button({
       disabled={disabled}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
-      style={{ opacity: disabled ? 0.45 : 1 }}
+      style={[{ opacity: disabled ? 0.45 : 1 }, style]}
     >
       <Animated.View
         style={[
@@ -60,7 +71,7 @@ export default function Button({
             gap: space.sm,
             borderRadius: round ? radius.pill : radius.md,
             width: dimension,
-            height: dimension,
+            aspectRatio: iconOnly ? 1 : undefined,
             backgroundColor: v.backgroundColor,
             borderWidth: v.borderWidth,
             borderColor: v.borderColor,
@@ -69,7 +80,6 @@ export default function Button({
             paddingHorizontal: s.paddingHorizontal,
             transform: [{ scale }],
           },
-          style,
         ]}
       >
         {Icon && <Icon size={iconSize} color={v.color} />}

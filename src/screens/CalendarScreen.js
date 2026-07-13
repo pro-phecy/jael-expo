@@ -3,12 +3,11 @@ import { View, Text, Pressable, ScrollView } from "react-native";
 import { ChevronLeft, ChevronRight, CalendarHeart, Clock, Plus } from "lucide-react-native";
 import { useAppTheme } from "../context/ThemeContext";
 import { space, radius, type } from "../theme/tokens";
-import ScreenEnter from "../components/ScreenEnter";
+import ToolScreen from "../components/ToolScreen";
 import SubHeader from "../components/SubHeader";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
-import { usePersistedState } from "../hooks/usePersistedState";
 
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -22,9 +21,9 @@ function formatTime(t) {
 
 export default function CalendarScreen({ onBack }) {
   const { theme } = useAppTheme();
-  const [cursor, setCursor] = useState(new Date(2026, 2, 1)); // March 2026 — just the initial view, not persisted
+  const [cursor, setCursor] = useState(new Date(2026, 2, 1)); // March 2026
   const [selected, setSelected] = useState(13);
-  const [events, setEvents] = usePersistedState("jael:calendar-events", {
+  const [events, setEvents] = useState({
     "2026-2-13": [{ text: "Coffee", time: "16:00" }],
     "2026-2-21": [{ text: "Their birthday", time: "" }],
   });
@@ -59,9 +58,9 @@ export default function CalendarScreen({ onBack }) {
   };
 
   return (
-    <ScreenEnter style={{ flex: 1, width: "100%" }}>
+    <ToolScreen>
       <SubHeader title="Calendar planner" onBack={onBack} />
-      <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, width: "100%" }}>
+      <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: space.md }}>
           <Button variant="plain" iconOnly size="sm" icon={ChevronLeft} onPress={() => changeMonth(-1)} accessibilityLabel="Previous month" />
           <Text style={{ fontFamily: "Fraunces_400Regular", fontSize: type.title - 1, color: theme.text }}>{monthLabel} {year}</Text>
@@ -129,11 +128,11 @@ export default function CalendarScreen({ onBack }) {
         </View>
 
         <View style={{ flexDirection: "row", gap: space.sm }}>
-          <TextInput value={draft} onChangeText={setDraft} onSubmitEditing={addEvent} placeholder="Add a plan for this day..." style={{ flex: 1 }} />
+          <TextInput value={draft} onChangeText={setDraft} onSubmitEditing={addEvent} placeholder="Add a plan for this day..." style={{ flexGrow: 1, flexBasis: 0 }} />
           <TextInput value={draftTime} onChangeText={setDraftTime} placeholder="16:00" style={{ width: 76 }} />
           <Button variant="primary" iconOnly icon={Plus} onPress={addEvent} accessibilityLabel="Add event" />
         </View>
       </ScrollView>
-    </ScreenEnter>
+    </ToolScreen>
   );
 }
