@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Slot } from 'expo-router';
 
 import WelcomeScreen from '../src/components/welcome/WelcomeScreen';
@@ -31,15 +32,17 @@ export default function RootLayout() {
   const appReady = fontsLoaded;
 
   return (
-    <View style={styles.flex}>
-      {appReady && <Slot />}
+    <SafeAreaProvider>
+      <View style={styles.flex}>
+        {appReady && <Slot />}
 
-      {showWelcome && (
-        <View style={StyleSheet.absoluteFill}>
-          <WelcomeScreen onFinished={() => setShowWelcome(false)} />
-        </View>
-      )}
-    </View>
+        {showWelcome && (
+          <View style={StyleSheet.absoluteFill}>
+            <WelcomeScreen onFinished={() => setShowWelcome(false)} />
+          </View>
+        )}
+      </View>
+    </SafeAreaProvider>
   );
 }
 
