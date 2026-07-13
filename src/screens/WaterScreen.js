@@ -29,9 +29,9 @@ export default function WaterScreen({ onBack }) {
   const pct = Math.round((Math.min(count, goal) / goal) * 100);
 
   return (
-    <ScreenEnter style={{ flex: 1 }}>
+    <ScreenEnter style={{ flex: 1, width: "100%" }}>
       <SubHeader title="Water tracker" onBack={onBack} />
-      <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
+      <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, width: "100%" }}>
         <Card style={{ alignItems: "center", paddingVertical: 26 }}>
           <PopOnChange changeKey={count}>
             <Text style={{ fontFamily: "Fraunces_400Regular", fontSize: 34, color: theme.blushText }}>

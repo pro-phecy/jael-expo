@@ -18,8 +18,8 @@ export default function ProfileScreen() {
   const [pushEnabled, setPushEnabled] = usePersistedState("jael:push-enabled", true);
 
   return (
-    <ScrollView contentContainerStyle={{ padding: space.xl, paddingTop: space.md }}>
-      <ScreenEnter>
+    <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ padding: space.xl, paddingTop: space.md, width: "100%" }}>
+      <ScreenEnter style={{ width: "100%" }}>
         <View style={{ alignItems: "center", paddingVertical: space.xl }}>
           <View
             style={{

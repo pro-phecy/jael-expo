@@ -29,9 +29,9 @@ export default function TodoScreen({ onBack }) {
   const remaining = items.filter((i) => !i.done).length;
 
   return (
-    <ScreenEnter style={{ flex: 1 }}>
+    <ScreenEnter style={{ flex: 1, width: "100%" }}>
       <SubHeader title="To-do" onBack={onBack} />
-      <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
+      <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, width: "100%" }}>
         <Text style={{ fontSize: type.label, color: theme.muted, marginBottom: space.lg }}>{remaining} left to do</Text>
         <View style={{ flexDirection: "row", gap: space.sm, marginBottom: space.xl }}>
           <TextInput value={draft} onChangeText={setDraft} onSubmitEditing={add} placeholder="Add a small thing..." style={{ flex: 1 }} />

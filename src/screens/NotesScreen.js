@@ -31,12 +31,12 @@ export default function NotesScreen({ onBack }) {
 
   if (editing) {
     return (
-      <ScreenEnter style={{ flex: 1 }}>
+      <ScreenEnter style={{ flex: 1, width: "100%" }}>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: space.xl, paddingBottom: space.lg }}>
           <Button variant="plain" size="sm" onPress={() => setEditing(null)}>Cancel</Button>
           <Button variant="ghost" size="sm" onPress={save}>Save</Button>
         </View>
-        <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
+        <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, width: "100%" }}>
           <TextInput
             value={draftTitle}
             onChangeText={setDraftTitle}
@@ -57,9 +57,9 @@ export default function NotesScreen({ onBack }) {
   }
 
   return (
-    <ScreenEnter style={{ flex: 1 }}>
+    <ScreenEnter style={{ flex: 1, width: "100%" }}>
       <SubHeader title="Notes" onBack={onBack} />
-      <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, gap: space.md }}>
+      <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, gap: space.md, width: "100%" }}>
         <Button variant="dashed" icon={Plus} onPress={openNew}>New note</Button>
         {notes.map((n, idx) => (
           <Card key={n.id} delay={idx * 45}>

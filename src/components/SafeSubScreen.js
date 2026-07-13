@@ -15,7 +15,7 @@ import { useAppTheme } from "../context/ThemeContext";
 export default function SafeSubScreen({ children }) {
   const { theme } = useAppTheme();
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg }} edges={["top", "left", "right"]}>
+    <SafeAreaView style={{ flex: 1, width: "100%", backgroundColor: theme.bg }} edges={["top", "left", "right"]}>
       {children}
     </SafeAreaView>
   );

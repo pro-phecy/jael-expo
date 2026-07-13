@@ -30,9 +30,9 @@ export default function HabitsScreen({ onBack }) {
   };
 
   return (
-    <ScreenEnter style={{ flex: 1 }}>
+    <ScreenEnter style={{ flex: 1, width: "100%" }}>
       <SubHeader title="Habit tracker" onBack={onBack} />
-      <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
+      <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, width: "100%" }}>
         <View style={{ flexDirection: "row", gap: space.sm, marginBottom: space.xl }}>
           <TextInput value={draft} onChangeText={setDraft} onSubmitEditing={addHabit} placeholder="Add a habit..." style={{ flex: 1 }} />
           <Button variant="primary" iconOnly icon={Plus} onPress={addHabit} accessibilityLabel="Add habit" />

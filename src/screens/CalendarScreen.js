@@ -59,9 +59,9 @@ export default function CalendarScreen({ onBack }) {
   };
 
   return (
-    <ScreenEnter style={{ flex: 1 }}>
+    <ScreenEnter style={{ flex: 1, width: "100%" }}>
       <SubHeader title="Calendar planner" onBack={onBack} />
-      <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
+      <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl, width: "100%" }}>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: space.md }}>
           <Button variant="plain" iconOnly size="sm" icon={ChevronLeft} onPress={() => changeMonth(-1)} accessibilityLabel="Previous month" />
           <Text style={{ fontFamily: "Fraunces_400Regular", fontSize: type.title - 1, color: theme.text }}>{monthLabel} {year}</Text>

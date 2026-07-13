@@ -14,8 +14,8 @@ export default function HomeScreen({ streak }) {
   const streakLabel = streak == null ? "…" : `${streak} day streak`;
 
   return (
-    <ScrollView contentContainerStyle={{ padding: space.xl, paddingTop: space.md }}>
-      <ScreenEnter>
+    <ScrollView style={{ flex: 1, width: "100%" }} contentContainerStyle={{ padding: space.xl, paddingTop: space.md, width: "100%" }}>
+      <ScreenEnter style={{ width: "100%" }}>
         <View
           style={{
             borderWidth: 0.5,
