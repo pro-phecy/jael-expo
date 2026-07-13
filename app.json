@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Jael",
+    "slug": "jael",
+    "scheme": "jael",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "backgroundColor": "#F3ECEA"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "plugins": ["expo-router"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.jael.app"
+    },
+    "android": {
+      "package": "com.jael.app"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
