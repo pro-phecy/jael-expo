@@ -8,8 +8,10 @@ import Button from "./Button";
 import PopOnChange from "./PopOnChange";
 
 export default function AppHeader() {
-  const { theme } = useAppTheme();
-  const { unreadCount, open } = useNotifications();
+   const { theme } = useAppTheme();
+  const notifications = useNotifications();
+  const unreadCount = notifications?.unreadCount ?? 0;
+  const open = notifications?.open ?? (() => {});
 
   return (
     <View style={{ paddingHorizontal: space.xl, paddingTop: 12, paddingBottom: 6, flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>

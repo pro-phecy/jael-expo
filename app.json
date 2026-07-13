@@ -9,8 +9,13 @@
     "splash": {
       "backgroundColor": "#F3ECEA"
     },
-    "assetBundlePatterns": ["**/*"],
-    "plugins": ["expo-router"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.jael.app"
