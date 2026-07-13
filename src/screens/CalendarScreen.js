@@ -8,6 +8,7 @@ import SubHeader from "../components/SubHeader";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
+import { usePersistedState } from "../hooks/usePersistedState";
 
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -21,9 +22,9 @@ function formatTime(t) {
 
 export default function CalendarScreen({ onBack }) {
   const { theme } = useAppTheme();
-  const [cursor, setCursor] = useState(new Date(2026, 2, 1)); // March 2026
+  const [cursor, setCursor] = useState(new Date(2026, 2, 1)); // March 2026 — just the initial view, not persisted
   const [selected, setSelected] = useState(13);
-  const [events, setEvents] = useState({
+  const [events, setEvents] = usePersistedState("jael:calendar-events", {
     "2026-2-13": [{ text: "Coffee", time: "16:00" }],
     "2026-2-21": [{ text: "Their birthday", time: "" }],
   });

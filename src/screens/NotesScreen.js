@@ -8,10 +8,11 @@ import SubHeader from "../components/SubHeader";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
+import { usePersistedState } from "../hooks/usePersistedState";
 
 export default function NotesScreen({ onBack }) {
   const { theme } = useAppTheme();
-  const [notes, setNotes] = useState([
+  const [notes, setNotes] = usePersistedState("jael:notes", [
     { id: 1, title: "That thing they said", body: "About the trip to the coast. Keep bringing it up casually." },
   ]);
   const [editing, setEditing] = useState(null);

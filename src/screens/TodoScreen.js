@@ -8,10 +8,11 @@ import SubHeader from "../components/SubHeader";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import PopOnChange from "../components/PopOnChange";
+import { usePersistedState } from "../hooks/usePersistedState";
 
 export default function TodoScreen({ onBack }) {
   const { theme } = useAppTheme();
-  const [items, setItems] = useState([
+  const [items, setItems] = usePersistedState("jael:todos", [
     { id: 1, text: "Reply to their message", done: false },
     { id: 2, text: "Pick a coffee spot for Thursday", done: false },
     { id: 3, text: "Save that playlist idea", done: true },

@@ -9,12 +9,13 @@ import Card from "../components/Card";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import PopOnChange from "../components/PopOnChange";
+import { usePersistedState } from "../hooks/usePersistedState";
 
 const DAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
 export default function HabitsScreen({ onBack }) {
   const { theme } = useAppTheme();
-  const [habits, setHabits] = useState([
+  const [habits, setHabits] = usePersistedState("jael:habits", [
     { id: 1, name: "Send a good morning text", done: [true, true, false, true, false, false, false] },
     { id: 2, name: "Journal a thought about them", done: [true, false, false, false, false, false, false] },
   ]);

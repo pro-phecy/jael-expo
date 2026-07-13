@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { Droplet } from "lucide-react-native";
 import { useAppTheme } from "../context/ThemeContext";
@@ -8,11 +8,24 @@ import SubHeader from "../components/SubHeader";
 import Card from "../components/Card";
 import Button from "../components/Button";
 import PopOnChange from "../components/PopOnChange";
+import { usePersistedState } from "../hooks/usePersistedState";
+import { dateKey } from "../utils/streak";
 
 export default function WaterScreen({ onBack }) {
   const { theme } = useAppTheme();
   const goal = 8;
-  const [count, setCount] = useState(4);
+  const today = dateKey(new Date());
+  // Stored as { date, count } so a new calendar day starts back at 0
+  // instead of carrying yesterday's glasses forward.
+  const [waterData, setWaterData] = usePersistedState("jael:water", { date: today, count: 0 });
+  const count = waterData.date === today ? waterData.count : 0;
+  const setCount = (updater) => {
+    setWaterData((prev) => {
+      const current = prev.date === today ? prev.count : 0;
+      const nextCount = typeof updater === "function" ? updater(current) : updater;
+      return { date: today, count: nextCount };
+    });
+  };
   const pct = Math.round((Math.min(count, goal) / goal) * 100);
 
   return (

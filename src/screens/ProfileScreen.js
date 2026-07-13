@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { Bell, Lock, HelpCircle, Moon, Sun, ChevronRight } from "lucide-react-native";
 import { useAppTheme } from "../context/ThemeContext";
@@ -6,6 +6,7 @@ import { space, radius, type } from "../theme/tokens";
 import ScreenEnter from "../components/ScreenEnter";
 import Button from "../components/Button";
 import Toggle from "../components/Toggle";
+import { usePersistedState } from "../hooks/usePersistedState";
 
 const ROWS = [
   { label: "Privacy", icon: Lock },
@@ -14,7 +15,7 @@ const ROWS = [
 
 export default function ProfileScreen() {
   const { theme, darkMode, toggleDarkMode } = useAppTheme();
-  const [pushEnabled, setPushEnabled] = useState(true);
+  const [pushEnabled, setPushEnabled] = usePersistedState("jael:push-enabled", true);
 
   return (
     <ScrollView contentContainerStyle={{ padding: space.xl, paddingTop: space.md }}>

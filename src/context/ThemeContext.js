@@ -1,10 +1,11 @@
-import React, { createContext, useContext, useState, useMemo } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { lightTheme, darkTheme } from "../theme/tokens";
+import { usePersistedState } from "../hooks/usePersistedState";
 
 const ThemeContext = createContext({ theme: lightTheme, darkMode: false, toggleDarkMode: () => {} });
 
 export function ThemeProvider({ children }) {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = usePersistedState("jael:dark-mode", false);
   const theme = darkMode ? darkTheme : lightTheme;
   const value = useMemo(
     () => ({ theme, darkMode, toggleDarkMode: () => setDarkMode((d) => !d) }),
