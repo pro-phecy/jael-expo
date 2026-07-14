@@ -3,7 +3,7 @@ import { View, Text, Pressable, ScrollView } from "react-native";
 import { ChevronLeft, ChevronRight, Plus, Clock } from "lucide-react-native";
 import { useAppTheme } from "../context/ThemeContext";
 import { space, radius, type } from "../theme/tokens";
-import ScreenEnter from "../components/ScreenEnter";
+import ToolScreen from "../components/ToolScreen";
 import SubHeader from "../components/SubHeader";
 import Card from "../components/Card";
 import Button from "../components/Button";
@@ -151,7 +151,7 @@ export default function CalendarScreen({ onBack }) {
   };
 
   return (
-    <ScreenEnter style={{ flex: 1 }}>
+    <ToolScreen>
       <SubHeader title="Calendar planner" onBack={onBack} />
       <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: space.lg }}>
@@ -232,7 +232,7 @@ export default function CalendarScreen({ onBack }) {
                     </View>
                     <View style={{ flexDirection: "row", gap: 3, marginTop: 4, height: 5 }}>
                       {dayEvents.slice(0, 3).map((e, i) => (
-                        <View key={i} style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: e.color || DEFAULT_EVENT_COLOR }} />
+                        <View key={e.id ?? i} style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: e.color || DEFAULT_EVENT_COLOR }} />
                       ))}
                     </View>
                   </Pressable>
@@ -245,7 +245,7 @@ export default function CalendarScreen({ onBack }) {
             </Text>
             <View style={{ gap: space.sm }}>
               {selectedEvents.map((e, i) => (
-                <EventCard key={e.id} event={e} delay={i * 50} onPress={() => openEdit(selected, e)} />
+                <EventCard key={e.id ?? `${selectedKey}-${i}`} event={e} delay={i * 50} onPress={() => openEdit(selected, e)} />
               ))}
               {!selectedEvents.length && <Text style={{ fontSize: type.body - 1, color: theme.muted }}>Nothing planned yet</Text>}
             </View>
@@ -266,7 +266,7 @@ export default function CalendarScreen({ onBack }) {
                 </Text>
                 <View style={{ gap: space.sm }}>
                   {group.events.map((e, i) => (
-                    <EventCard key={e.id} event={e} delay={i * 40} onPress={() => openEdit(group.date, e)} />
+                    <EventCard key={e.id ?? `${group.key}-${i}`} event={e} delay={i * 40} onPress={() => openEdit(group.date, e)} />
                   ))}
                 </View>
               </View>
@@ -283,6 +283,6 @@ export default function CalendarScreen({ onBack }) {
         onSave={saveEvent}
         onDelete={editor.initial ? deleteEvent : null}
       />
-    </ScreenEnter>
+    </ToolScreen>
   );
 }
