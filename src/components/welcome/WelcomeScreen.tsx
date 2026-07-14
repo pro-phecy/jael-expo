@@ -24,10 +24,10 @@ import {
   Animated,
   Easing,
   Dimensions,
+  SafeAreaView,
   Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const { height: SCREEN_H } = Dimensions.get("window");
 

@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Slot } from 'expo-router';
 
 import WelcomeScreen from '../src/components/welcome/WelcomeScreen';
+import { HabitsProvider } from '../src/context/HabitsContext';
 import { useFonts } from "expo-font";
 import {
   Fraunces_400Regular,
@@ -31,15 +32,17 @@ export default function RootLayout() {
   const appReady = fontsLoaded;
 
   return (
-    <View style={styles.flex}>
-      {appReady && <Slot />}
+    <HabitsProvider>
+      <View style={styles.flex}>
+        {appReady && <Slot />}
 
-      {showWelcome && (
-        <View style={StyleSheet.absoluteFill}>
-          <WelcomeScreen onFinished={() => setShowWelcome(false)} />
-        </View>
-      )}
-    </View>
+        {showWelcome && (
+          <View style={StyleSheet.absoluteFill}>
+            <WelcomeScreen onFinished={() => setShowWelcome(false)} />
+          </View>
+        )}
+      </View>
+    </HabitsProvider>
   );
 }
 

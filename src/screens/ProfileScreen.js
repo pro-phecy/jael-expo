@@ -33,7 +33,7 @@ export default function ProfileScreen() {
           >
             <Text style={{ fontFamily: "Fraunces_400Regular", fontSize: 19, color: theme.blushText }}>JD</Text>
           </View>
-          <Text style={{ fontSize: type.bodyLg, fontWeight: "500", color: theme.text }}>Jael</Text>
+          <Text style={{ fontSize: type.bodyLg, fontWeight: "500", color: theme.text }}>Jordan</Text>
           <Button variant="outline" size="sm" round style={{ marginTop: space.md }}>Edit profile</Button>
         </View>
 

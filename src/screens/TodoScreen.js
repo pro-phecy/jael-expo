@@ -3,7 +3,7 @@ import { View, Text, Pressable, ScrollView } from "react-native";
 import { Plus, Check, X } from "lucide-react-native";
 import { useAppTheme } from "../context/ThemeContext";
 import { space, radius, type } from "../theme/tokens";
-import ToolScreen from "../components/ToolScreen";
+import ScreenEnter from "../components/ScreenEnter";
 import SubHeader from "../components/SubHeader";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
@@ -28,12 +28,12 @@ export default function TodoScreen({ onBack }) {
   const remaining = items.filter((i) => !i.done).length;
 
   return (
-    <ToolScreen>
+    <ScreenEnter style={{ flex: 1 }}>
       <SubHeader title="To-do" onBack={onBack} />
       <ScrollView contentContainerStyle={{ paddingHorizontal: space.xl, paddingBottom: space.xxl }}>
         <Text style={{ fontSize: type.label, color: theme.muted, marginBottom: space.lg }}>{remaining} left to do</Text>
         <View style={{ flexDirection: "row", gap: space.sm, marginBottom: space.xl }}>
-          <TextInput value={draft} onChangeText={setDraft} onSubmitEditing={add} placeholder="Add a small thing..." style={{ flexGrow: 1, flexBasis: 0 }} />
+          <TextInput value={draft} onChangeText={setDraft} onSubmitEditing={add} placeholder="Add a small thing..." style={{ flex: 1 }} />
           <Button variant="primary" iconOnly icon={Plus} onPress={add} accessibilityLabel="Add task" />
         </View>
         <View style={{ gap: space.sm }}>
@@ -80,6 +80,6 @@ export default function TodoScreen({ onBack }) {
           ))}
         </View>
       </ScrollView>
-    </ToolScreen>
+    </ScreenEnter>
   );
 }
