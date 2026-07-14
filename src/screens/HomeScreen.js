@@ -49,7 +49,7 @@ export default function HomeScreen({ streak }) {
           </View>
 
           <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 }}>
-            <Text style={{ fontFamily: "Fraunces_400Regular", fontSize: type.displayLg, color: theme.text }}>Good evening, Jordan</Text>
+            <Text style={{ fontFamily: "Fraunces_400Regular", fontSize: type.displayLg, color: theme.text }}>Good evening, Jael</Text>
             <Moon size={20} color={theme.accent} fill={theme.accent} />
           </View>
           <Text style={{ fontSize: type.body, color: theme.muted, marginBottom: space.xl }}>Thinking of them, quietly, today.</Text>
